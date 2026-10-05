@@ -155,6 +155,34 @@ Acesse [localhost:3000](http://localhost:3000) para ver o site e [localhost:3000
 | `npm run build` | Build de produção |
 | `npm start` | Servidor de produção |
 | `npm run lint` | ESLint |
+| `npm run typecheck` | Checagem de tipos do TypeScript |
+
+## Commits e versões
+
+O projeto segue o padrão [**Conventional Commits**](https://www.conventionalcommits.org/pt-br). A versão do `package.json` e o `CHANGELOG.md` são gerados automaticamente a partir das mensagens.
+
+```bash
+git commit -m "feat: adiciona seção de depoimentos"      # nova funcionalidade → versão minor (1.1.0)
+git commit -m "fix(admin): corrige upload no iPhone"     # correção → versão patch (1.0.1)
+git commit -m "docs: atualiza o README"                  # não gera versão
+git commit -m "feat!: troca o login por link mágico"     # mudança que quebra → versão major (2.0.0)
+```
+
+| Tipo | Quando usar |
+| --- | --- |
+| `feat` | Funcionalidade nova |
+| `fix` | Correção de bug |
+| `perf` | Melhoria de desempenho |
+| `refactor` | Mudança de código sem alterar comportamento |
+| `docs` | Documentação |
+| `style` | Formatação, sem mudar lógica |
+| `chore` · `build` · `ci` · `test` | Manutenção, dependências, pipeline e testes |
+
+**Automação:**
+- **Husky + commitlint** recusam mensagens fora do padrão já no `git commit`.
+- **lint-staged** roda o ESLint (com `--fix`) só nos arquivos alterados antes de cada commit.
+- **CI** (GitHub Actions) roda lint, checagem de tipos e build em cada push e PR, e confere as mensagens dos commits nos PRs.
+- **release-please** mantém aberto um PR *"chore(main): release X.Y.Z"* com a nova versão e o changelog. Ao dar merge nele, a tag e a release são criadas no GitHub.
 
 ## Licença
 
